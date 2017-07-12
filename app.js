@@ -123,7 +123,7 @@ app.post('/process_post', function (req, res) {
 
 
 
-var server = app.listen(app.get('port', () =>{
+var server = app.listen(app.get('port'), () =>{
 
    var host = server.address().address
    var port = server.address().port
