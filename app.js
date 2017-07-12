@@ -30,6 +30,27 @@ app.get('/index.htm', (req, res) => {
     res.sendFile( __dirname + "/" + "index.htm" );
 })
 
+/////////////////////////////////////////////////////////////
+app.get('/db', function (request, response) {
+  pg.connect(process.env.DATABASE_URL, (err, client, done) =>{
+    client.query('SELECT * FROM records', (err, result) => {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {   
+            alert(result);
+       //response.render('pages/db', {results: result.rows} );
+        }
+    });
+  });
+});
+
+
+////////////////////////////////////////////////////////////
+
+
+
 app.post('/uploadData',(req, res) => {
     const conString = "postgres://postgres:.@localhost:5432/postgres";
     const client = new pg.Client(conString);
