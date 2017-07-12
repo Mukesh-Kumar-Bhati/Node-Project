@@ -11,7 +11,7 @@ const cors = require('cors')
 
 
 // const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+app.set('port', (process.env.PORT || 8081));
 app.use(express.static('public'));
 
 // parse application/json 
@@ -123,7 +123,7 @@ app.post('/process_post', function (req, res) {
 
 
 
-var server = app.listen(8081, () =>{
+var server = app.listen(app.get('port', () =>{
 
    var host = server.address().address
    var port = server.address().port
