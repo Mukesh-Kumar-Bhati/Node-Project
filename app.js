@@ -64,7 +64,7 @@ app.get('/getData',(req, res) => {
         console.log('####################################################################');
         console.log(JSON.stringify(row.rows));
         client.end();
-        res.send(JSON.stringify(row.rows));
+        res.json(row.rows);
     }).catch(error => {
             client.end();
             res.json(JSON.stringify(error));
@@ -77,24 +77,24 @@ app.get('/getData',(req, res) => {
 
 app.post('/process_post', function (req, res) {
 
-  client.connect();
-	const results = [];
+     client.connect();
+	   const results = [];
    // Prepare output in JSON format
-   response = {
-      first_name:req.body.first_name,
-      last_name:req.body.monile_number
-   };
-   client.query(`INSERT INTO public.records(name,mobilenumber) VALUES ('${req.body.first_name}',${req.body.monile_number})`);
-   const query1 = client.query('SELECT name, mobilenumber FROM records');
+     response = {
+            first_name:req.body.first_name,
+             last_name:req.body.monile_number
+      };
+      client.query(`INSERT INTO public.records(name,mobilenumber) VALUES ('${req.body.first_name}',${req.body.monile_number})`);
+      const query1 = client.query('SELECT name, mobilenumber FROM records');
 
-  query1.then((row) =>{
-	   console.log(row.rows);
-	//res.send(JSON.stringify(row.rows));
-});
+      query1.then((row) =>{
+	          console.log(row.rows);
+	          //res.send(JSON.stringify(row.rows));
+       });
 
-   		query1.on('end', function() {
-    		client.end();
-		});
+   		 query1.on('end', function() {
+    		    client.end();
+		  });
 
    // console.log(results);
    // res.end(JSON.stringify(response));
