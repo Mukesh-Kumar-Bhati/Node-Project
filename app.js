@@ -68,6 +68,7 @@ app.get('/db',  (request, response) =>{
 
 ///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 app.post('/uploadData',(req, res) => {
+    console.log('yaha to aa gya bhai....');
     const conString = process.env.DATABASE_URL;
     const client = new pg.Client(conString);
     client.connect();
