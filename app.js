@@ -126,6 +126,32 @@ app.post('/uploadData',(req, res) => {
 
 
 // Accessing Data from Database
+
+///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+app.get('/getData',(req, res) => {
+    console.log('test');
+    const conString = process.env.DATABASE_URL;
+    const client = new pg.Client(conString);
+    client.connect();
+    console.log("Get DataBox is here : ");
+    client.query('SELECT * FROM public.records').then((row) =>{
+        console.log(row.rows);
+        console.log('####################################################################');
+        console.log(JSON.stringify(row.rows));
+        client.end();
+        res.json(row.rows);
+    }).catch(error => {
+            client.end();
+            res.json(JSON.stringify(error));
+            console.log(error);
+ });
+
+});
+
+///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// code for Local host 
+/**
 app.get('/getData',(req, res) => {
     console.log('test');
     const conString = "postgres://postgres:.@localhost:5432/postgres";
@@ -145,6 +171,8 @@ app.get('/getData',(req, res) => {
  });
 
 });
+
+**/
 //============
 
 
