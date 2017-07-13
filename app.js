@@ -72,7 +72,9 @@ app.post('/uploadData',(req, res) => {
     const client = new pg.Client(conString);
     client.connect();
     console.log("uploadData Box is here");
-    console.log(req.body);
+    console.log('Req execute');
+    console.log(req);
+    console.log('body of the req');
     client.query(`INSERT INTO public.records(name,mobilenumber,state,email,address,pin,"isChecked") VALUES ('${req.body.name}',${req.body.mobilenumber},'${req.body.state}','${req.body.email}','${req.body.address}',${req.body.pin},${req.body.isChecked})`)
         .then(() =>{
               const query1 = client.query('SELECT * FROM public.records')
