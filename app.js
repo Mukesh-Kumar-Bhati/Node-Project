@@ -113,6 +113,7 @@ app.post('/validateLogIn',(req, res) => {
 ///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 app.post('/uploadData',(req, res) => {
     console.log('yaha to aa gya bhai....');
+   // const conString = "postgres://postgres:.@localhost:5432/postgres";
     const conString = process.env.DATABASE_URL;
     const client = new pg.Client(conString);
     client.connect();
@@ -120,7 +121,7 @@ app.post('/uploadData',(req, res) => {
     console.log('Req execute');
     console.log(req);
     console.log('body of the req');
-    client.query(`INSERT INTO public.records(name,mobilenumber,state,email,address,pin,"isChecked") VALUES ('${req.body.name}',${req.body.mobilenumber},'${req.body.state}','${req.body.email}','${req.body.address}',${req.body.pin},${req.body.isChecked})`)
+    client.query(`INSERT INTO public.records(name,mobilenumber,state,email,password,address,pin,"isChecked") VALUES ('${req.body.name}',${req.body.mobilenumber},'${req.body.state}','${req.body.email}','${req.body.password}','${req.body.address}',${req.body.pin},${req.body.isChecked})`)
         .then(() =>{
               const query1 = client.query('SELECT * FROM public.records')
              .then((row) =>{
