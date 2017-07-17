@@ -70,8 +70,8 @@ app.get('/db',  (request, response) =>{
 
 app.post('/validateLogIn',(req, res) => {
     console.log('yaha to aa gya bhai....');
-    const conString = "postgres://postgres:.@localhost:5432/postgres";
-    //const conString = process.env.DATABASE_URL;
+    //const conString = "postgres://postgres:.@localhost:5432/postgres";
+    const conString = process.env.DATABASE_URL;
     const client = new pg.Client(conString);
     client.connect();
     console.log("validateLogIn Box is here");
