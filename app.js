@@ -62,6 +62,50 @@ app.get('/db',  (request, response) =>{
   // });
 });
 
+/////////////////////////////////////////////////////////////
+
+// Validate Log in credentials
+
+/////////////////////////////////////////////////////////////
+
+app.post('/validateLogIn',(req, res) => {
+    console.log('yaha to aa gya bhai....');
+    //const conString = "postgres://postgres:.@localhost:5432/postgres";
+   const conString = process.env.DATABASE_URL;
+    const client = new pg.Client(conString);
+    client.connect();
+    console.log("validateLogIn Box is here");
+    console.log('Req execute');
+    //console.log(req);
+    console.log('body of the req');
+    console.log('User Id and Pass :'+ req.body.userEmail + ' ' + req.body.password);
+    client.query(`Select id FROM public.records WHERE email = '${req.body.userEmail}' AND password = '${req.body.password}'`)
+             .then((row) =>{
+                  console.log(row.rows);
+                  client.end();
+                  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+                  console.log(row.rows);
+
+                  if(row.rows.length < 1){
+                  return res.send(false);
+                  }
+                  else {
+                  return res.send(true);
+                  }
+                  //return res.send(JSON.stringify(row.rows));
+              }).catch(error => {
+  client.end();
+  res.send(JSON.stringify(error));
+  console.log(error);
+ })
+    
+})
+
+
+
+
+
+
 ////////////////////////////////////////////////////////////
 
 //Upload Data on server database
